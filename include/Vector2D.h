@@ -74,23 +74,23 @@ struct Vector2D
 
 	// ---メンバ関数---------------------------------------------------------------
 	// ベクトルの長さを計算する
-	float length() const
+	float Length() const
 	{
 		float dx = static_cast<float>(this->x);
 		float dy = static_cast<float>(this->y);
 		return std::sqrt(dx * dx + dy * dy);
 	}
 	// ベクトルの2乗の長さを計算する
-	float lengthSquared() const
+	float LengthSquared() const
 	{
 		float dx = static_cast<float>(this->x);
 		float dy = static_cast<float>(this->y);
 		return dx * dx + dy * dy;
 	}
 	// ベクトルを正規化して自身を更新する
-	Vector2D<T>& normalize()
+	Vector2D<T>& Normalize()
 	{
-		float len = length();
+		float len = Length();
 		if (len != 0)
 		{
 			x /= len;
@@ -99,11 +99,18 @@ struct Vector2D
 		return *this;
 	}
 	// ベクトルを正規化した値を返す（自身は更新しない）
-	Vector2D<T> normalized() const
+	Vector2D<T> Normalized() const
 	{
-		float len = length();
+		float len = Length();
 		if (len == 0)
 			return Vector2D<T>(0, 0);
 		return Vector2D<T>(x / len, y / len);
 	}
 };
+
+// ベクトルの内積を計算する関数
+template<typename T>
+inline float Dot(const Vector2D<T>& a, const Vector2D<T>& b)
+{
+	return static_cast<float>(a.x) * static_cast<float>(b.x) + static_cast<float>(a.y) * static_cast<float>(b.y);
+}
