@@ -22,4 +22,9 @@ struct Vector2D
 	{
 		return Vector2D<T>(x - other.x, y - other.y);
 	}
+	// ベクトルのスカラー倍
+	Vector2D<T> operator*(T scalar) const
+	{
+		return Vector2D<T>(x * scalar, y * scalar);
+	}
 };

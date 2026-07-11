@@ -3,9 +3,9 @@
 
 int main()
 {
-    Vector2D<float> v1(2.0f, 3.0f);
+    Vector2D<float> v1(1.0f, 3.0f);
     Vector2D<float> v2(3.0f, 4.0f);
-	Vector2D<float> v3 = v1 - v2;
+	Vector2D<float> v3 = v1 * 2.0f;
 
     std::cout << "v1: (" << v1.x << ", " << v1.y << ")" << std::endl;
     std::cout << "v2: (" << v2.x << ", " << v2.y << ")" << std::endl;
