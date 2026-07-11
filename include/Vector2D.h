@@ -87,4 +87,23 @@ struct Vector2D
 		float dy = static_cast<float>(this->y);
 		return dx * dx + dy * dy;
 	}
+	// ベクトルを正規化して自身を更新する
+	Vector2D<T>& normalize()
+	{
+		float len = length();
+		if (len != 0)
+		{
+			x /= len;
+			y /= len;
+		}
+		return *this;
+	}
+	// ベクトルを正規化した値を返す（自身は更新しない）
+	Vector2D<T> normalized() const
+	{
+		float len = length();
+		if (len == 0)
+			return Vector2D<T>(0, 0);
+		return Vector2D<T>(x / len, y / len);
+	}
 };
