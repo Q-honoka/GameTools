@@ -46,4 +46,11 @@ struct Vector2D
 		y -= other.y;
 		return *this;
 	}
+	// ベクトルのスカラー倍代入演算子
+	Vector2D<T>& operator*=(T scalar)
+	{
+		x *= scalar;
+		y *= scalar;
+		return *this;
+	}
 };
