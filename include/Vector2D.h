@@ -60,4 +60,14 @@ struct Vector2D
 		y /= scalar;
 		return *this;
 	}
+	// ベクトルの等価演算子
+	bool operator==(const Vector2D<T>& other) const
+	{
+		return x == other.x && y == other.y;
+	}
+	// ベクトルの非等価演算子
+	bool operator!=(const Vector2D<T>& other) const
+	{
+		return !(*this == other);
+	}
 };
