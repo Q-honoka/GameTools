@@ -114,3 +114,21 @@ inline float Dot(const Vector2D<T>& a, const Vector2D<T>& b)
 {
 	return static_cast<float>(a.x) * static_cast<float>(b.x) + static_cast<float>(a.y) * static_cast<float>(b.y);
 }
+
+// ベクトルの距離を計算する関数
+template<typename T>
+inline float Distance(const Vector2D<T>& a, const Vector2D<T>& b)
+{
+	float dx = static_cast<float>(a.x) - static_cast<float>(b.x);
+	float dy = static_cast<float>(a.y) - static_cast<float>(b.y);
+	return std::sqrt(dx * dx + dy * dy);
+}
+
+// ベクトルの距離の2乗を計算する関数
+template<typename T>
+inline float DistanceSquared(const Vector2D<T>& a, const Vector2D<T>& b)
+{
+	float dx = static_cast<float>(a.x) - static_cast<float>(b.x);
+	float dy = static_cast<float>(a.y) - static_cast<float>(b.y);
+	return dx * dx + dy * dy;
+}
