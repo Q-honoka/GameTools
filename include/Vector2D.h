@@ -80,4 +80,11 @@ struct Vector2D
 		float dy = static_cast<float>(this->y);
 		return std::sqrt(dx * dx + dy * dy);
 	}
+	// ベクトルの2乗の長さを計算する
+	float lengthSquared() const
+	{
+		float dx = static_cast<float>(this->x);
+		float dy = static_cast<float>(this->y);
+		return dx * dx + dy * dy;
+	}
 };
