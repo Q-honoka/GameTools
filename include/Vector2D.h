@@ -17,4 +17,9 @@ struct Vector2D
 	{
 		return Vector2D<T>(x + other.x, y + other.y);
 	}
+	// ベクトルの減算
+	Vector2D<T> operator-(const Vector2D<T>& other) const
+	{
+		return Vector2D<T>(x - other.x, y - other.y);
+	}
 };
