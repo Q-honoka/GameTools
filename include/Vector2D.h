@@ -8,10 +8,11 @@ struct Vector2D
 	T x;	// X成分
 	T y;	// Y成分
 
-	// コンストラクタ
+	// ---コンストラクタ------------------------------------------------------------
 	Vector2D() : x(0), y(0) {}
 	Vector2D(T x, T y) : x(x), y(y) {}
 
+	// ---演算子オーバーロード------------------------------------------------------
 	// ベクトルの加算
 	Vector2D<T> operator+(const Vector2D<T>& other) const
 	{
@@ -69,5 +70,14 @@ struct Vector2D
 	bool operator!=(const Vector2D<T>& other) const
 	{
 		return !(*this == other);
+	}
+
+	// ---メンバ関数---------------------------------------------------------------
+	// ベクトルの長さを計算する
+	float length() const
+	{
+		float dx = static_cast<float>(this->x);
+		float dy = static_cast<float>(this->y);
+		return std::sqrt(dx * dx + dy * dy);
 	}
 };
