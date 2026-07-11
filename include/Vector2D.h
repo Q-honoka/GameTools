@@ -32,4 +32,11 @@ struct Vector2D
 	{
 		return Vector2D<T>(x / scalar, y / scalar);
 	}
+	// ベクトルの加算代入演算子
+	Vector2D<T>& operator+=(const Vector2D<T>& other)
+	{
+		x += other.x;
+		y += other.y;
+		return *this;
+	}
 };
