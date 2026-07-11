@@ -27,4 +27,9 @@ struct Vector2D
 	{
 		return Vector2D<T>(x * scalar, y * scalar);
 	}
+	// ベクトルのスカラー除算
+	Vector2D<T> operator/(T scalar) const
+	{
+		return Vector2D<T>(x / scalar, y / scalar);
+	}
 };
