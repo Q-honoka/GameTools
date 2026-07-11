@@ -11,4 +11,10 @@ struct Vector2D
 	// コンストラクタ
 	Vector2D() : x(0), y(0) {}
 	Vector2D(T x, T y) : x(x), y(y) {}
+
+	// ベクトルの加算
+	Vector2D<T> operator+(const Vector2D<T>& other) const
+	{
+		return Vector2D<T>(x + other.x, y + other.y);
+	}
 };
