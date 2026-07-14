@@ -17,9 +17,11 @@ TimeManager::TimeManager(int target = 60) :
 /// </summary>
 void TimeManager::Update()
 {
+	// 次のフレーム開始までの待ち時間を求める
 	std::chrono::steady_clock::time_point frameStartTime = std::chrono::steady_clock::now();
 	auto next = frameStartTime + targetFrameTime;
 
+	// スリープ処理が終わったらデルタタイムを求める
 	std::this_thread::sleep_until(next);
 	deltaTime = std::chrono::steady_clock::now() - frameStartTime;
 }
