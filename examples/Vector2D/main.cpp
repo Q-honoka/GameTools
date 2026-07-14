@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <cmath>
 
 // Vector2D.h をインクルード
 #include "Vector2D.h"
