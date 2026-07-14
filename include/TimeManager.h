@@ -11,8 +11,10 @@ public:
 	void Update();				// 更新処理
 	void SetFPS(int target);	// FPSを設定する
 	int GetFPS() const;			// 現在のFPSを取得する
+	float GetDeltaTime() const;	// 1フレームにかかった時間を取得する
 private:
 	int targetFPS;	// 目標FPS
 	std::chrono::steady_clock::time_point startTime;		// ゲームの開始時間
 	std::chrono::duration<float, std::milli> targetFrameTime;	// 1フレーム当たりの目標時間(ミリ秒)
+	std::chrono::duration<float, std::milli> deltaTime;		// 1フレームにかかった時間
 };

@@ -1,5 +1,5 @@
 ﻿#include "TimeManager.h"
-#include <iostream>
+#include <thread>
 
 /// <summary>
 /// 引数付きコンストラクタ
@@ -8,17 +8,20 @@
 TimeManager::TimeManager(int target = 60) :
 	targetFPS(target),
 	startTime(std::chrono::steady_clock::now()),
-	targetFrameTime(std::chrono::duration<float>(1.0f / targetFPS))
-{
-	std::cout << std::chrono::duration<float, std::milli>(targetFrameTime).count() << std::endl;
-}
+	targetFrameTime(std::chrono::duration<float>(1.0f / targetFPS)),
+	deltaTime({})
+{ }
 
 /// <summary>
 /// 更新処理
 /// </summary>
 void TimeManager::Update()
 {
-	
+	std::chrono::steady_clock::time_point frameStartTime = std::chrono::steady_clock::now();
+	auto next = frameStartTime + targetFrameTime;
+
+	std::this_thread::sleep_until(next);
+	deltaTime = std::chrono::steady_clock::now() - frameStartTime;
 }
 
 /// <summary>
@@ -28,6 +31,7 @@ void TimeManager::Update()
 void TimeManager::SetFPS(int target)
 {
 	targetFPS = target;
+	targetFrameTime = std::chrono::duration<float>(1.0f / targetFPS);
 }
 
 /// <summary>
@@ -37,4 +41,13 @@ void TimeManager::SetFPS(int target)
 int TimeManager::GetFPS() const
 {
 	return targetFPS;
+}
+
+/// <summary>
+/// 1フレームにかかった時間を返す
+/// </summary>
+/// <returns>デルタタイム</returns>
+float TimeManager::GetDeltaTime() const
+{
+	return deltaTime.count();
 }
