@@ -1,4 +1,5 @@
-#include "TimeManager.h"
+﻿#include "TimeManager.h"
+#include <iostream>
 
 /// <summary>
 /// 引数付きコンストラクタ
@@ -6,16 +7,18 @@
 /// <param name="target">設定したいFPS</param>
 TimeManager::TimeManager(int target = 60) :
 	targetFPS(target),
-	startTime(std::chrono::steady_clock::now),
-	targetFrameTime(1000.0f / targetFPS)
-{ }
+	startTime(std::chrono::steady_clock::now()),
+	targetFrameTime(std::chrono::duration<float>(1.0f / targetFPS))
+{
+	std::cout << std::chrono::duration<float, std::milli>(targetFrameTime).count() << std::endl;
+}
 
 /// <summary>
 /// 更新処理
 /// </summary>
 void TimeManager::Update()
 {
-
+	
 }
 
 /// <summary>
