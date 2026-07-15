@@ -7,6 +7,7 @@
 /// <param name="target">設定したいFPS</param>
 TimeManager::TimeManager(int target = 60) :
 	targetFPS(target),
+	frameCount(0),
 	startTime(std::chrono::steady_clock::now()),
 	targetFrameTime(std::chrono::duration<float>(1.0f / targetFPS)),
 	deltaTime({})
@@ -24,6 +25,7 @@ void TimeManager::Update()
 	// スリープ処理が終わったらデルタタイムを求める
 	std::this_thread::sleep_until(next);
 	deltaTime = std::chrono::steady_clock::now() - frameStartTime;
+	frameCount++;
 }
 
 /// <summary>
@@ -52,4 +54,13 @@ int TimeManager::GetFPS() const
 float TimeManager::GetDeltaTime() const
 {
 	return deltaTime.count();
+}
+
+/// <summary>
+/// フレームカウントを取得する
+/// </summary>
+/// <returns>フレームカウント</returns>
+unsigned int TimeManager::GetFrameCount() const
+{
+	return frameCount;
 }
