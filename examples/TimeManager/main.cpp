@@ -1,15 +1,22 @@
-﻿#include "TimeManager.h"
-#include <iostream>
+﻿#include <iostream>
+#include "TimeManager.h"
 
 int main()
 {
-	TimeManager timeManager(60);
+    TimeManager time_manager(60);
 
-	for(int i = 0; i < 10; i++)
-	{
-		timeManager.Update();
-		std::cout << timeManager.GetDeltaTime() << std::endl;
-	}
+    while (time_manager.GetElapsedTime() < 5.0f)
+    {
+        time_manager.Update();
 
-	return 0;
+        std::cout
+            << "Frame : " << time_manager.GetFrameCount()
+            << " | DeltaTime : " << time_manager.GetDeltaTime()
+            << " | Elapsed : " << time_manager.GetElapsedTime()
+            << std::endl;
+    }
+
+    std::cout << "\n5秒経過したので終了します。" << std::endl;
+
+    return 0;
 }
