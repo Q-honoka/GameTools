@@ -8,7 +8,7 @@ int main()
 	for(int i = 0; i < 10; i++)
 	{
 		timeManager.Update();
-		std::cout << timeManager.GetFrameCount() << std::endl;
+		std::cout << timeManager.GetDeltaTime() << std::endl;
 	}
 
 	return 0;
