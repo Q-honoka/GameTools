@@ -110,3 +110,30 @@ inline HitInfo CheckCollision(const Circle& a, const Circle& b)
 
 	return hitInfo;
 }
+
+// 点と矩形の衝突判定
+inline HitInfo CheckCollision(const Vector2D& point, const Rectangle& rect)
+{
+	HitInfo hitInfo = InitializeHitInfo();
+
+	// 矩形の左上と右下の座標を計算
+	Vector2D rectRightDown = rect.leftUpPosition + Vector2D(rect.width, rect.height);
+
+	// 点が矩形の範囲内にあるかを判定
+	if (point.x >= rect.leftUpPosition.x && point.x <= rectRightDown.x &&
+		point.y >= rect.leftUpPosition.y && point.y <= rectRightDown.y)
+	{
+		hitInfo.isHit = true;
+		hitInfo.hitPoint = point;
+		// 法線ベクトルを計算（矩形の中心から点へのベクトルを正規化）
+		Vector2D rectCenter = rect.leftUpPosition + Vector2D(rect.width / 2.0f, rect.height / 2.0f);
+		hitInfo.hitNormal = (point - rectCenter).Normalized();
+		// 矩形の各辺から点までの距離を計算し、そのなかの最小距離をめり込みの深さとする
+		hitInfo.penetrationDepth = std::min({ std::abs(point.x - rect.leftUpPosition.x),
+											  std::abs(point.x - rectRightDown.x),
+											  std::abs(point.y - rect.leftUpPosition.y),
+											  std::abs(point.y - rectRightDown.y) });
+	}
+
+	return hitInfo;
+}

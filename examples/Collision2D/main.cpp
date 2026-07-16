@@ -113,5 +113,31 @@ int main()
 
 	std::cout << std::endl;
 
+	// ==============================================================
+	// 点と矩形の衝突判定
+	// ==============================================================
+	Vector2D pointE(2, 2);
+	Rectangle rect(Vector2D(1, 1), 3.0f, 3.0f);
+
+	std::cout << "点E\t: (" << pointE.x << ", " << pointE.y << ")" << std::endl;
+	std::cout << "矩形\t: 左上 (" << rect.leftUpPosition.x << ", " << rect.leftUpPosition.y << "), 幅 " << rect.width << ", 高さ " << rect.height << std::endl;
+
+	HitInfo hitInfoRect = CheckCollision(pointE, rect);
+
+	if (hitInfoRect.isHit)
+	{
+		std::cout << "点と矩形の衝突が検出されました。" << std::endl;
+		std::cout << "衝突点\t\t: (" << hitInfoRect.hitPoint.x << ", " << hitInfoRect.hitPoint.y << ")" << std::endl;
+		std::cout << "衝突法線\t: (" << hitInfoRect.hitNormal.x << ", " << hitInfoRect.hitNormal.y << ")" << std::endl;
+		std::cout << "めり込みの深さ\t: " << hitInfoRect.penetrationDepth << std::endl;
+
+	}
+	else
+	{
+		std::cout << "点と矩形の衝突は検出されませんでした。" << std::endl;
+	}
+
+	std::cout << std::endl;
+
     return 0;
 }
