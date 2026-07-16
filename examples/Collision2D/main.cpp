@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 
-// Vector2D.h をインクルード
+// Collision2D.h をインクルード
 #include "Collision2D.h"
 
 /*
