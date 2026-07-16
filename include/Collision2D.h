@@ -36,3 +36,34 @@ inline HitInfo CheckCollision(const Vector2D& a, const Vector2D& b)
 
 	return hitInfo;
 }
+
+// 点と線分の衝突判定
+inline HitInfo CheckCollision(const Vector2D& point, const LineSegment& line)
+{
+	HitInfo hitInfo = InitializeHitInfo();
+
+	Vector2D lineVec = line.end - line.start;
+	Vector2D pointVec = point - line.start;
+
+	Vector2D lineDir = lineVec.Normalized();
+	float dot = Dot(pointVec, lineDir);
+
+	if (dot < 0.0f)
+	{
+		hitInfo.isHit = false;
+		return hitInfo;
+	}
+
+	if (dot > lineVec.Length())
+	{
+		hitInfo.isHit = false;
+		return hitInfo;
+	}
+
+	hitInfo.isHit = true;
+	hitInfo.hitPoint = line.start + lineDir * dot;
+	hitInfo.hitNormal = Vector2D(-lineDir.y, lineDir.x); // 法線ベクトルを計算
+	hitInfo.penetrationDepth = 0.0f; // 点と線分の衝突ではめり込みはない
+
+	return hitInfo;
+}
