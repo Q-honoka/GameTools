@@ -90,27 +90,6 @@ inline HitInfo CheckCollision(const Vector2D& point, const Circle& circle)
 	return hitInfo;
 }
 
-// 円と円の衝突判定
-inline HitInfo CheckCollision(const Circle& a, const Circle& b)
-{
-	HitInfo hitInfo = InitializeHitInfo();
-
-	// 円の中心間の距離を計算
-	float distance = Distance(a.center, b.center);
-	float radiusSum = a.radius + b.radius;
-
-	// 中心間の距離が半径の合計以下なら衝突している
-	if (distance <= radiusSum)
-	{
-		hitInfo.isHit = true;
-		hitInfo.hitNormal = (b.center - a.center).Normalized(); // 法線ベクトルを計算
-		hitInfo.penetrationDepth = radiusSum - distance;		// めり込みの深さを計算
-		hitInfo.hitPoint = a.center + hitInfo.hitNormal * a.radius; // 衝突点を計算
-	}
-
-	return hitInfo;
-}
-
 // 点と矩形の衝突判定
 inline HitInfo CheckCollision(const Vector2D& point, const Rectangle& rect)
 {
@@ -133,6 +112,55 @@ inline HitInfo CheckCollision(const Vector2D& point, const Rectangle& rect)
 											  std::abs(point.x - rectRightDown.x),
 											  std::abs(point.y - rect.leftUpPosition.y),
 											  std::abs(point.y - rectRightDown.y) });
+	}
+
+	return hitInfo;
+}
+
+// 円と円の衝突判定
+inline HitInfo CheckCollision(const Circle& a, const Circle& b)
+{
+	HitInfo hitInfo = InitializeHitInfo();
+
+	// 円の中心間の距離を計算
+	float distance = Distance(a.center, b.center);
+	float radiusSum = a.radius + b.radius;
+
+	// 中心間の距離が半径の合計以下なら衝突している
+	if (distance <= radiusSum)
+	{
+		hitInfo.isHit = true;
+		hitInfo.hitNormal = (b.center - a.center).Normalized(); // 法線ベクトルを計算
+		hitInfo.penetrationDepth = radiusSum - distance;		// めり込みの深さを計算
+		hitInfo.hitPoint = a.center + hitInfo.hitNormal * a.radius; // 衝突点を計算
+	}
+
+	return hitInfo;
+}
+
+// 円と矩形の衝突判定
+inline HitInfo CheckCollision(const Circle& circle, const Rectangle& rect)
+{
+	HitInfo hitInfo = InitializeHitInfo();
+
+	// 矩形の左上と右下の座標を計算
+	Vector2D rectRightDown = rect.leftUpPosition + Vector2D(rect.width, rect.height);
+
+	// 円の中心を矩形の範囲内に制限する
+	float closestX = std::max(rect.leftUpPosition.x, std::min(circle.center.x, rectRightDown.x));
+	float closestY = std::max(rect.leftUpPosition.y, std::min(circle.center.y, rectRightDown.y));
+
+	// 一番近い点と円の中心との距離を計算
+	Vector2D closestPoint(closestX, closestY);
+	float distance = Distance(circle.center, closestPoint);
+
+	// 距離が円の半径以下なら衝突している
+	if (distance <= circle.radius)
+	{
+		hitInfo.isHit = true;
+		hitInfo.hitNormal = (circle.center - closestPoint).Normalized();	// 法線ベクトルを計算
+		hitInfo.penetrationDepth = circle.radius - distance;				// めり込みの深さを計算
+		hitInfo.hitPoint = closestPoint;									// 最近接点を衝突点とする
 	}
 
 	return hitInfo;

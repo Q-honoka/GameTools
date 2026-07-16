@@ -41,12 +41,12 @@ int main()
 	// 点と線分の衝突判定
 	// ==============================================================
 	Vector2D pointC(2, 2);
-	LineSegment lineSegment(Vector2D(1, 1), Vector2D(3, 3));
+	LineSegment lineSegmentA(Vector2D(1, 1), Vector2D(3, 3));
 
 	std::cout << "点C\t: (" << pointC.x << ", " << pointC.y << ")" << std::endl;
-	std::cout << "線分\t: (" << lineSegment.start.x << ", " << lineSegment.start.y << ") から (" << lineSegment.end.x << ", " << lineSegment.end.y << ")" << std::endl;
+	std::cout << "線分A\t: (" << lineSegmentA.start.x << ", " << lineSegmentA.start.y << ") から (" << lineSegmentA.end.x << ", " << lineSegmentA.end.y << ")" << std::endl;
 
-	HitInfo hitInfoLine = CheckCollision(pointC, lineSegment);
+	HitInfo hitInfoLine = CheckCollision(pointC, lineSegmentA);
 
 	if (hitInfoLine.isHit)
 	{
@@ -66,12 +66,12 @@ int main()
 	// 点と円の衝突判定
 	// ==============================================================
 	Vector2D pointD(2, 2);
-	Circle circle(Vector2D(1, 1), 2.0f);
+	Circle circleA(Vector2D(1, 1), 2.0f);
 
 	std::cout << "点D\t: (" << pointD.x << ", " << pointD.y << ")" << std::endl;
-	std::cout << "円\t: 中心 (" << circle.center.x << ", " << circle.center.y << "), 半径 " << circle.radius << std::endl;
+	std::cout << "円A\t: 中心 (" << circleA.center.x << ", " << circleA.center.y << "), 半径 " << circleA.radius << std::endl;
 
-	HitInfo hitInfoCircle = CheckCollision(pointD, circle);
+	HitInfo hitInfoCircle = CheckCollision(pointD, circleA);
 
 	if (hitInfoCircle.isHit)
 	{
@@ -90,13 +90,13 @@ int main()
 	// ==============================================================
 	// 円と円の衝突判定
 	// ==============================================================
-	Circle circleA(Vector2D(1, 1), 2.0f);
-	Circle circleB(Vector2D(2, 2), 2.0f);
+	Circle circleB(Vector2D(1, 1), 2.0f);
+	Circle circleC(Vector2D(2, 2), 2.0f);
 
-	std::cout << "円A\t: 中心 (" << circleA.center.x << ", " << circleA.center.y << "), 半径 " << circleA.radius << std::endl;
 	std::cout << "円B\t: 中心 (" << circleB.center.x << ", " << circleB.center.y << "), 半径 " << circleB.radius << std::endl;
+	std::cout << "円C\t: 中心 (" << circleC.center.x << ", " << circleC.center.y << "), 半径 " << circleC.radius << std::endl;
 
-	HitInfo hitInfoCircleCircle = CheckCollision(circleA, circleB);
+	HitInfo hitInfoCircleCircle = CheckCollision(circleB, circleC);
 
 	if (hitInfoCircleCircle.isHit)
 	{
@@ -117,12 +117,12 @@ int main()
 	// 点と矩形の衝突判定
 	// ==============================================================
 	Vector2D pointE(2, 2);
-	Rectangle rect(Vector2D(1, 1), 3.0f, 3.0f);
+	Rectangle rectA(Vector2D(1, 1), 3.0f, 3.0f);
 
 	std::cout << "点E\t: (" << pointE.x << ", " << pointE.y << ")" << std::endl;
-	std::cout << "矩形\t: 左上 (" << rect.leftUpPosition.x << ", " << rect.leftUpPosition.y << "), 幅 " << rect.width << ", 高さ " << rect.height << std::endl;
+	std::cout << "矩形A\t: 左上 (" << rectA.leftUpPosition.x << ", " << rectA.leftUpPosition.y << "), 幅 " << rectA.width << ", 高さ " << rectA.height << std::endl;
 
-	HitInfo hitInfoRect = CheckCollision(pointE, rect);
+	HitInfo hitInfoRect = CheckCollision(pointE, rectA);
 
 	if (hitInfoRect.isHit)
 	{
@@ -135,6 +135,32 @@ int main()
 	else
 	{
 		std::cout << "点と矩形の衝突は検出されませんでした。" << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	// ==============================================================
+	// 円と矩形の衝突判定
+	// ==============================================================
+	Circle circleD(Vector2D(2, 2), 1.0f);
+	Rectangle rectB(Vector2D(1, 1), 3.0f, 3.0f);
+
+	std::cout << "円D\t: 中心 (" << circleD.center.x << ", " << circleD.center.y << "), 半径 " << circleD.radius << std::endl;
+	std::cout << "矩形B\t: 左上 (" << rectB.leftUpPosition.x << ", " << rectB.leftUpPosition.y << "), 幅 " << rectB.width << ", 高さ " << rectB.height << std::endl;
+
+	HitInfo hitInfoCircleRect = CheckCollision(circleD, rectB);
+
+	if (hitInfoCircleRect.isHit)
+	{
+		std::cout << "円と矩形の衝突が検出されました。" << std::endl;
+		std::cout << "衝突点\t\t: (" << hitInfoCircleRect.hitPoint.x << ", " << hitInfoCircleRect.hitPoint.y << ")" << std::endl;
+		std::cout << "衝突法線\t: (" << hitInfoCircleRect.hitNormal.x << ", " << hitInfoCircleRect.hitNormal.y << ")" << std::endl;
+		std::cout << "めり込みの深さ\t: " << hitInfoCircleRect.penetrationDepth << std::endl;
+
+	}
+	else
+	{
+		std::cout << "円と矩形の衝突は検出されませんでした。" << std::endl;
 	}
 
 	std::cout << std::endl;
