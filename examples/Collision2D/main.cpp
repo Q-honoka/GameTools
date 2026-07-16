@@ -60,5 +60,30 @@ int main()
 		std::cout << "点と線分の衝突は検出されませんでした。" << std::endl;
 	}
 
+	std::cout << std::endl;
+
+	// ==============================================================
+	// 点と円の衝突判定
+	// ==============================================================
+	Vector2D pointD(2, 2);
+	Circle circle(Vector2D(1, 1), 2.0f);
+
+	std::cout << "点D: (" << pointD.x << ", " << pointD.y << ")" << std::endl;
+	std::cout << "円: 中心 (" << circle.center.x << ", " << circle.center.y << "), 半径 " << circle.radius << std::endl;
+
+	HitInfo hitInfoCircle = CheckCollision(pointD, circle);
+
+	if (hitInfoCircle.isHit)
+	{
+		std::cout << "点と円の衝突が検出されました。" << std::endl;
+		std::cout << "衝突点: (" << hitInfoCircle.hitPoint.x << ", " << hitInfoCircle.hitPoint.y << ")" << std::endl;
+		std::cout << "衝突法線: (" << hitInfoCircle.hitNormal.x << ", " << hitInfoCircle.hitNormal.y << ")" << std::endl;
+		std::cout << "めり込みの深さ: " << hitInfoCircle.penetrationDepth << std::endl;
+	}
+	else
+	{
+		std::cout << "点と円の衝突は検出されませんでした。" << std::endl;
+	}
+
     return 0;
 }
