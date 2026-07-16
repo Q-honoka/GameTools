@@ -29,3 +29,14 @@ target_include_directories (
     PRIVATE
     include
 )
+
+add_executable(
+    Example_Collision2D
+    "examples/Collision2D/main.cpp"
+)
+
+target_include_directories(
+    Example_Collision2D
+    PRIVATE
+    include
+)
