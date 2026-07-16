@@ -12,15 +12,16 @@
 
 int main()
 {
-    Vector2D pointA(4, 4);
-    Vector2D pointB(1, 1);
-	LineSegment lineSegment(Vector2D(1, 1), Vector2D(3, 3));
-	
-    std::cout << "点A: (" << pointA.x << ", " << pointA.y << ")" << std::endl;
-	std::cout << "点B: (" << pointB.x << ", " << pointB.y << ")" << std::endl;
-    std::cout << "線分: (" << lineSegment.start.x << ", " << lineSegment.start.y << ") から (" << lineSegment.end.x << ", " << lineSegment.end.y << ")" << std::endl;
+	// ==============================================================
+	// 点と点の衝突判定
+	// ==============================================================
+	Vector2D pointA(1, 1);
+	Vector2D pointB(1, 1);
 
-    HitInfo hitInfo = CheckCollision(pointA, pointB);
+	std::cout << "点A: (" << pointA.x << ", " << pointA.y << ")" << std::endl;
+	std::cout << "点B: (" << pointB.x << ", " << pointB.y << ")" << std::endl;
+
+	HitInfo hitInfo = CheckCollision(pointA, pointB);
 
     if (hitInfo.isHit)
     {
@@ -34,7 +35,18 @@ int main()
         std::cout << "衝突は検出されませんでした。" << std::endl;
     }
 
-	HitInfo hitInfoLine = CheckCollision(pointA, lineSegment);
+	std::cout << std::endl;
+
+	// ==============================================================
+	// 点と線分の衝突判定
+	// ==============================================================
+	Vector2D pointC(2, 2);
+	LineSegment lineSegment(Vector2D(1, 1), Vector2D(3, 3));
+
+	std::cout << "点C: (" << pointC.x << ", " << pointC.y << ")" << std::endl;
+	std::cout << "線分: (" << lineSegment.start.x << ", " << lineSegment.start.y << ") から (" << lineSegment.end.x << ", " << lineSegment.end.y << ")" << std::endl;
+
+	HitInfo hitInfoLine = CheckCollision(pointC, lineSegment);
 
 	if (hitInfoLine.isHit)
 	{
