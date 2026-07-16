@@ -1,4 +1,4 @@
-#include "Vector2D.h"
+﻿#include "Vector2D.h"
 
 /*
 *	このヘッダファイルは、2Dの形を表すデータ構造体を定義しています。
