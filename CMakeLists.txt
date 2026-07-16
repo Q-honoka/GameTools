@@ -8,12 +8,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 file(GLOB SOURCES "src/*.cpp")
 
 add_executable(
-    Example
+    Example_Vector2D
     "examples/Vector2D/main.cpp"
 )
 
 target_include_directories(
-    Example
+    Example_Vector2D
     PRIVATE
     include
 )
