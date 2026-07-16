@@ -89,3 +89,24 @@ inline HitInfo CheckCollision(const Vector2D& point, const Circle& circle)
 	}
 	return hitInfo;
 }
+
+// 円と円の衝突判定
+inline HitInfo CheckCollision(const Circle& a, const Circle& b)
+{
+	HitInfo hitInfo = InitializeHitInfo();
+
+	// 円の中心間の距離を計算
+	float distance = Distance(a.center, b.center);
+	float radiusSum = a.radius + b.radius;
+
+	// 中心間の距離が半径の合計以下なら衝突している
+	if (distance <= radiusSum)
+	{
+		hitInfo.isHit = true;
+		hitInfo.hitNormal = (b.center - a.center).Normalized(); // 法線ベクトルを計算
+		hitInfo.penetrationDepth = radiusSum - distance;		// めり込みの深さを計算
+		hitInfo.hitPoint = a.center + hitInfo.hitNormal * a.radius; // 衝突点を計算
+	}
+
+	return hitInfo;
+}
