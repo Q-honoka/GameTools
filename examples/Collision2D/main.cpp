@@ -165,5 +165,31 @@ int main()
 
 	std::cout << std::endl;
 
+	// ==============================================================
+	// 矩形と矩形の衝突判定
+	// ==============================================================
+	Rectangle rectC(Vector2D(1, 1), 3.0f, 3.0f);
+	Rectangle rectD(Vector2D(2, 2), 3.0f, 3.0f);
+
+	std::cout << "矩形C\t: 左上 (" << rectC.leftUpPosition.x << ", " << rectC.leftUpPosition.y << "), 幅 " << rectC.width << ", 高さ " << rectC.height << std::endl;
+	std::cout << "矩形D\t: 左上 (" << rectD.leftUpPosition.x << ", " << rectD.leftUpPosition.y << "), 幅 " << rectD.width << ", 高さ " << rectD.height << std::endl;
+
+	HitInfo hitInfoRectRect = CheckCollision(rectC, rectD);
+
+	if (hitInfoRectRect.isHit)
+	{
+		std::cout << "矩形と矩形の衝突が検出されました。" << std::endl;
+		std::cout << "衝突点\t\t: (" << hitInfoRectRect.hitPoint.x << ", " << hitInfoRectRect.hitPoint.y << ")" << std::endl;
+		std::cout << "衝突法線\t: (" << hitInfoRectRect.hitNormal.x << ", " << hitInfoRectRect.hitNormal.y << ")" << std::endl;
+		std::cout << "めり込みの深さ\t: " << hitInfoRectRect.penetrationDepth << std::endl;
+
+	}
+	else
+	{
+		std::cout << "矩形と矩形の衝突は検出されませんでした。" << std::endl;
+	}
+
+	std::cout << std::endl;
+
     return 0;
 }

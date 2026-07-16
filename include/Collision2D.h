@@ -165,3 +165,32 @@ inline HitInfo CheckCollision(const Circle& circle, const Rectangle& rect)
 
 	return hitInfo;
 }
+
+// 矩形と矩形の衝突判定
+inline HitInfo CheckCollision(const Rectangle& a, const Rectangle& b)
+{
+	HitInfo hitInfo = InitializeHitInfo();
+
+	// 矩形の左上と右下の座標を計算
+	Vector2D aRightDown = a.leftUpPosition + Vector2D(a.width, a.height);
+	Vector2D bRightDown = b.leftUpPosition + Vector2D(b.width, b.height);
+
+	// 矩形同士の衝突判定
+	if (a.leftUpPosition.x < bRightDown.x && aRightDown.x > b.leftUpPosition.x &&
+		a.leftUpPosition.y < bRightDown.y && aRightDown.y > b.leftUpPosition.y)
+	{
+		hitInfo.isHit = true;
+		// 衝突点は矩形Aの中心と矩形Bの中心の中点とする
+		Vector2D aCenter = a.leftUpPosition + Vector2D(a.width / 2.0f, a.height / 2.0f);
+		Vector2D bCenter = b.leftUpPosition + Vector2D(b.width / 2.0f, b.height / 2.0f);
+		hitInfo.hitPoint = (aCenter + bCenter) * 0.5f;
+		// 法線ベクトルを計算（矩形Aの中心から矩形Bの中心へのベクトルを正規化）
+		hitInfo.hitNormal = (bCenter - aCenter).Normalized();
+		// めり込みの深さを計算（X方向とY方向の重なりの最小値）
+		float overlapX = std::min(aRightDown.x, bRightDown.x) - std::max(a.leftUpPosition.x, b.leftUpPosition.x);
+		float overlapY = std::min(aRightDown.y, bRightDown.y) - std::max(a.leftUpPosition.y, b.leftUpPosition.y);
+		hitInfo.penetrationDepth = std::min(overlapX, overlapY);
+	}
+
+	return hitInfo;
+}
