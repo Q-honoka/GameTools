@@ -40,3 +40,15 @@ target_include_directories(
     PRIVATE
     include
 )
+
+add_executable(
+    Example_InputManager
+    "examples/InputManager/main.cpp"
+    ${SOURCES}
+)
+
+target_include_directories (
+    Example_InputManager
+    PRIVATE
+    include
+)
