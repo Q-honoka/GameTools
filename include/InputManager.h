@@ -3,18 +3,12 @@
 *	外部からの入力情報を受け取り、キーやマウスの状態を管理しています。
 */
 
-#include <vector>
-
 class InputManager
 {
 public:
 	InputManager(); // コンストラクタ
 
-	int GenerateInputInfos();		// 入力情報のデータ構造体を生成して、そのインデックスを返す
-	void DeleteInputInfos(int index);		// 入力情報のデータ構造体を削除
-	void ClearAllInputInfos();		// 入力情報のデータ構造体をクリア
-
-	void UpdateKeys(const char* keys);	// 入力情報の更新
+	void UpdateKeys(const char* keys);	// キー入力情報の更新
 	void UpdateMouse(int mouseX, int mouseY, const bool mouseButton[3]); // マウス情報の更新
 
 	bool IsKeyPressed(int key) const;		// 指定されたキーが押されているかを判定
@@ -23,6 +17,8 @@ public:
 
 	void GetMousePosition(int& mouseX, int& mouseY);	// マウスの座標を取得
 	bool IsMouseButtonPressed(int button) const;	// 指定されたマウスボタンが押されているかを判定
+	bool IsMouseButtonReleased(int button) const;	// 指定されたマウスボタンが離されたかを判定
+	bool IsMouseButtonHeld(int button) const;	// 指定されたマウスボタンが押され続けているかを判定
 
 private:
 	// 入力情報を格納する構造体
@@ -37,5 +33,5 @@ private:
 		bool prevMouseButton[3];	// 前回のマウスボタンの状態（左、中、右）
 	};
 
-	std::vector<InputInfo> inputInfos;		// 入力情報のデータ構造体を格納するベクター
+	InputInfo inputInfo;		// 入力情報のデータ構造体を格納するベクター
 }
